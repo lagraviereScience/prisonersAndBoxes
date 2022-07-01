@@ -9,16 +9,15 @@
  * @param integer $size size of the array
  * @return array array of int
  */
-function generateShuffledArrayWhereIndicesNeverEqualValue(int $size) : array
+function generateShuffledArrayWhereIndicesNeverEqualValue(int $size): array
 {
-    $myArray = range(0,$size-1);
+    $myArray = range(0, $size - 1);
     shuffle($myArray);
 
-    while(!noDuplicateInArray($myArray) && !allUnique($myArray))
-    {
-		//if the array contains duplicate(s)
-		//or if any index equal the value it points to 
-		//we reshuffle the array
+    while (!noDuplicateInArray($myArray) && !allUnique($myArray)) {
+        //if the array contains duplicate(s)
+        //or if any index equal the value it points to 
+        //we reshuffle the array
         shuffle($myArray);
         /*foreach ($numbers as $key=>$value)
         {
@@ -40,12 +39,10 @@ function generateShuffledArrayWhereIndicesNeverEqualValue(int $size) : array
  * @param array $numbers array of int/numbers
  * @return boolean
  */
-function allUnique(array $numbers) : bool
+function allUnique(array $numbers): bool
 {
-    foreach ($numbers as $key=>$value)
-    {
-        if($key==$value)
-        {
+    foreach ($numbers as $key => $value) {
+        if ($key == $value) {
             return false;
         }
     }
@@ -78,13 +75,13 @@ function noDuplicateInArray(array $input_array)
  * @param integer $target
  * @return void
  */
-function debugThatArray(array $boxes,
-            int $prisoner,
-            int $target) : void
-{
+function debugThatArray(
+    array $boxes,
+    int $prisoner,
+    int $target
+): void {
     echo "\n****************************\n";
-    if(!noDuplicateInArray($boxes))
-    {
+    if (!noDuplicateInArray($boxes)) {
         echo "This array HAS duplicates \n";
     }
     displayPath($boxes, $prisoner);
@@ -104,11 +101,9 @@ function displayPath(array $boxes, int $prisoner)
     $amountOfBoxes = count($boxes);
     $target = $boxes[$prisoner];
     echo displayBox($prisoner, $target) . " ==> ";
-    while($prisoner != $target)
-    {
+    while ($prisoner != $target) {
 
-        if($length > $amountOfBoxes)
-        {
+        if ($length > $amountOfBoxes) {
             exit(0);
         }
 
@@ -125,7 +120,7 @@ function displayPath(array $boxes, int $prisoner)
  * @param integer $boxContent
  * @return string
  */
-function displayBox(int $boxNumber, int $boxContent) : string
+function displayBox(int $boxNumber, int $boxContent): string
 {
     return "[$boxNumber]->$boxContent";
 }
@@ -137,19 +132,17 @@ function displayBox(int $boxNumber, int $boxContent) : string
  * @param array $boxes an array containing values from 0 to count($boxes)-1, guaranteed without duplicates and no index equals to the value it points to
  * @return boolean
  */
-function prisonerPath(array $boxes) : bool
+function prisonerPath(array $boxes): bool
 {
     $amountOfBoxes = count($boxes);
     $success = true;
 
 
-    $stuck=0;
-    for($prisoner = 0; $prisoner < $amountOfBoxes; $prisoner++)
-    {
+    $stuck = 0;
+    for ($prisoner = 0; $prisoner < $amountOfBoxes; $prisoner++) {
         $length = 0;
         $target = $boxes[$prisoner];
-        while($target != $prisoner)
-        {
+        while ($target != $prisoner) {
             $length++;
             $target = $boxes[$target];
             /*if($length > $amountOfBoxes)
@@ -164,8 +157,7 @@ function prisonerPath(array $boxes) : bool
         /*
         If the prisoner walked MORE than $amountOfBoxes/2 then this is considered a fail
         */
-        if($length > $amountOfBoxes/2)
-        {
+        if ($length > $amountOfBoxes / 2) {
             return false;
         }
     }
@@ -187,11 +179,9 @@ $maxAttempt = 1000000;
 
 
 $success = 0;
-for ($attempt = 0; $attempt < $maxAttempt; $attempt++)
-{
+for ($attempt = 0; $attempt < $maxAttempt; $attempt++) {
     $myArray = generateShuffledArrayWhereIndicesNeverEqualValue($amountOfBoxes);
-    if(prisonerPath($myArray))
-    {
+    if (prisonerPath($myArray)) {
         $success++;
     }
     //print_r($myArray);
